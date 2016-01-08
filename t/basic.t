@@ -1,5 +1,22 @@
-use XHTML11;
+use v6;
+use Test;
+use XHTML::Writer;
 
-say table(id=>'foo', class=>'de', tr(class=>'.tr', td(class=>'.td', 'abc'), td('ghj')));
+plan 1;
 
-say p(p(p('abc'),p('ghj')));
+my $basic-example = Q:to/EOH/;
+<table id="foo" class="de">
+  <tr class=".tr">
+    <td class=".td">
+      abc
+    </td>
+    <td>
+      ghj
+    </td>
+  </tr>
+</table>
+EOH
+
+is table(id=>'foo', class=>'de', tr(class=>'.tr', td(class=>'.td', 'abc'), td('ghj'))) ~ "\n",
+	$basic-example, 'basic table';
+
