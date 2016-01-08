@@ -3,5 +3,6 @@ sudo: false
 perl6:
   - latest
 install:
-    panda install .
+    - rakudobrew build-panda
+    - panda install .
 
