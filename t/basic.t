@@ -12,11 +12,12 @@ my $basic-example = Q:to/EOH/;
     </td>
     <td>
       ghj
+      <br/>
     </td>
   </tr>
 </table>
 EOH
 
-is table(id=>'foo', class=>'de', tr(class=>'.tr', td(class=>'.td', 'abc'), td('ghj'))) ~ "\n",
+is table(id=>'foo', class=>'de', tr(class=>'.tr', td(class=>'.td', 'abc'), td('ghj', br))) ~ "\n",
 	$basic-example, 'basic table';
 

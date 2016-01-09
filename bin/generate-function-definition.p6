@@ -30,15 +30,28 @@ sub MAIN($schema-file?) {
 
 	my %elements;
 	put 'my $indent = 0;' ~ "\n";
+	put 'constant NL = "\n";';
 	multi sub walk(XML::Element $_ where .name ~~ <xs:element> && (.attribs<name>:exists)) {
 		my $name := .attribs<name> // Failure.new;
 		%elements{$name} = Any;
 		.nodes>>.&walk(element-name=>$name);		
-		put 'sub ', $name, '(', (':$' xx * Z~ %elements{$name}>>.subst(':', '-').list Z~ '?,' xx *), ' *@c) is export {', "\n    (temp \$indent)+=2;\n",
-		"    '<", $name, "' ~\n ", %elements{$name}.list.map({
+
+		my Str $named-arguments = (':$' xx * Z~ %elements{$name}>>.subst(':', '-').list Z~ '?,' xx * ).Str;
+		my Str $attributes-switch = %elements{$name}.list.map({
 			"   (\${$_.subst(':', '-')} ?? ' $_' ~ '=' ~ \"\\\"\${$_.subst(':', '-')}\\\"\" !! Empty) ~\n" 	
-		}), q{    ">\\n" ~ @c>>.Str>>.indent($indent).join("\n") ~ (+@c ?? "\\n" !! "") ~ '</}, $name, ">'", "\n",
-		'}', "\n";
+		}).Str;
+
+        constant $indent = '$indent';
+        put Q:s:b:to/EOH/;
+        sub $name ( $named-arguments *@c ) is export {
+            (temp $indent)+=2;
+            '<$name' ~ 
+         $attributes-switch 
+            ( +@c ?? ('>' ~ NL ~ @c>>.Str>>.indent($indent).join(NL) ~ (+@c ?? NL !! "") ~ '</$name>') 
+            !! '/>' ) 
+        }
+        
+        EOH
 	}
 
 	multi sub walk(XML::Element $_ where .name ~~ <xs:attribute>, :$element-name!) {
