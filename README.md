@@ -1,4 +1,4 @@
-# StrictNamedArguments
+# XHTML::Writer
 [![Build Status](https://travis-ci.org/gfldex/perl6-xhtml-writer.svg?branch=master)](https://travis-ci.org/gfldex/perl6-xhtml-writer)
 
 Write xhtml elements utilising named arguments to guard against typos. Colons in
