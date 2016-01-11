@@ -48,4 +48,3 @@ END
 
 is xhtml-skeleton(p('Hello Workd!')), $ok-result, 'basic skeleton';
 
-put $ok-result;
