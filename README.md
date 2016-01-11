@@ -17,8 +17,8 @@ use XHTML::Writer :ALL;
 
 put html( xml-lang=>'de', 
 	body(
-        div( id="uniq",
-          p( class="abc", 'your text here'),
+        div( id=>"uniq",
+          p( class=>"abc", 'your text here'),
           p( 'more text' )
         )
     ));
