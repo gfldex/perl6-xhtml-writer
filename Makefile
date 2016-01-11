@@ -4,7 +4,7 @@ lib/XHTML/Writer.pm6: bin/generate-function-definition.p6 Build.pm
 bin/benchmark.p6: bin/generate-benchmark.p6
 	perl6 -I ./lib $< > $@
 
-TESTS=t/basic.t
+TESTS=t/basic.t t/skepeton.t
 
 $(TESTS): lib/XHTML/Writer.pm6
 
