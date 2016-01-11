@@ -1,6 +1,6 @@
 use v6;
 use Test;
-use XHTML::Writer;
+use XHTML::Writer :ALL;
 
 plan 1;
 
