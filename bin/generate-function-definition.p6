@@ -1,9 +1,6 @@
 use v6;
 use XML;
 
-#TODO <br/>
-
-
 sub MAIN($schema-file?) {
 
 	my $doc = from-xml-file($schema-file // '3rd-party/xhtml1-strict.xsd');
@@ -43,7 +40,7 @@ sub MAIN($schema-file?) {
 
         constant $indent = '$indent';
         put Q:s:b:to/EOH/;
-        sub $name ( $named-arguments *@c ) is export {
+        sub $name ( $named-arguments *@c ) is export(:ALL :$name) {
             (temp $indent)+=2;
             '<$name' ~ 
          $attributes-switch 
