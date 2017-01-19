@@ -1,7 +1,6 @@
 use v6;
-use Panda::Builder;
 
-class Build is Panda::Builder {
+class Build {
     method build ($where) {
         mkdir "$where/lib/XHTML";
         my $out-file = open "$where/lib/XHTML/Writer.pm6", :w, :bin;
