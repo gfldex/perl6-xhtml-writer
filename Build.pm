@@ -9,9 +9,11 @@ class Build {
         my @include = flat "$where/lib/Typesafe", $*REPO.repo-chain.map(*.path-spec);
         my $proc = run 'perl6', '-I' «~« @include, "$where/bin/generate-function-definition.p6", "$where/3rd-party/xhtml1-strict.xsd", out => $out-file, :bin;
         die "Build.pm: bin/generate-function-definition.p6 failed with {$proc.exitcode}" if $proc.exitcode;
+
+        True
     }
 }
 
 # sub MAIN($where  = '.') {
-# 	Build.new.build($where);
+#     Build.new.build($where);
 # }
